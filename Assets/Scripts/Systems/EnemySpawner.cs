@@ -106,7 +106,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyTypes == null || enemyTypes.Count == 0) return null;
 
-        // 构建当前波次可用的敌人类型及权重
         List<EnemyData> available = new List<EnemyData>();
         List<float> weights = new List<float>();
 
@@ -115,57 +114,14 @@ public class EnemySpawner : MonoBehaviour
             EnemyData data = enemyTypes[i];
             if (data == null) continue;
 
-            float weight = GetWaveWeight(data.enemyType, wave);
-            if (weight > 0f)
+            if (data.IsAvailableAtWave(wave))
             {
                 available.Add(data);
-                weights.Add(weight);
+                weights.Add(data.spawnWeight);
             }
         }
 
-        // 加权随机选择
         return WeightedRandom(available, weights);
-    }
-
-    /// <summary>
-    /// 获取指定敌人类型在当前波次的生成权重
-    /// </summary>
-    private float GetWaveWeight(EnemyType type, int wave)
-    {
-        if (wave <= 5)
-        {
-            // Wave 1~5: 仅游荡者
-            return type == EnemyType.Wanderer ? 1f : 0f;
-        }
-        else if (wave <= 10)
-        {
-            // Wave 6~10: 游荡者60% + 奔跑者40%
-            if (type == EnemyType.Wanderer) return 0.6f;
-            if (type == EnemyType.Runner) return 0.4f;
-            return 0f;
-        }
-        else if (wave <= 15)
-        {
-            // Wave 11~15: 奔跑者50% + 壮汉50%
-            if (type == EnemyType.Runner) return 0.5f;
-            if (type == EnemyType.Brute) return 0.5f;
-            return 0f;
-        }
-        else if (wave <= 20)
-        {
-            // Wave 16~20: 游荡者20% + 奔跑者40% + 壮汉40%
-            if (type == EnemyType.Wanderer) return 0.2f;
-            if (type == EnemyType.Runner) return 0.4f;
-            if (type == EnemyType.Brute) return 0.4f;
-            return 0f;
-        }
-        else
-        {
-            // Wave 21~25: 奔跑者30% + 壮汉70%
-            if (type == EnemyType.Runner) return 0.3f;
-            if (type == EnemyType.Brute) return 0.7f;
-            return 0f;
-        }
     }
 
     /// <summary>
