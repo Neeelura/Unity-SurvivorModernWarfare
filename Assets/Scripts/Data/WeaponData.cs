@@ -87,15 +87,26 @@ public class WeaponData : ScriptableObject
     public float bonusAttackRange;    // 攻击范围加成
     public float bonusPickupRange;    // 拾取范围加成
 
+    [Header("等级数据 (1~5 级)")]
+    [Tooltip("按等级配置伤害倍率/频率倍率/属性加成，长度应为 5。留空则使用上方默认值")]
+    public WeaponLevelData[] levelData;
+
 
     /// <summary>
     /// 获取指定等级的数据（level 取值 1~5）
     /// 如果 levelData 已配置，返回对应的等级数据
-    /// 如果 levelData 未配置（全为0），使用兜底属性加成字段，伤害/频率倍率固定为 1.0
+    /// 如果 levelData 未配置，使用默认属性加成字段，伤害/频率倍率固定为 1.0
     /// </summary>
     /// <param name="level">武器等级（1~5），超出范围会钳制到 1~5</param>
     public WeaponLevelData GetLevelData(int level)
     {
+        int index = Mathf.Clamp(level, 1, 5) - 1;
+
+        if (levelData != null && index < levelData.Length)
+        {
+            return levelData[index];
+        }
+
         return new WeaponLevelData
         {
             damageMultiplier = 1f,

@@ -18,7 +18,6 @@ MonoBehaviour:
   effectParam: 5
   baseDamage: 8
   attackRange: 4
-  attackDuration: 0
   attackInterval: 1.5
   icon: {fileID: 21300000, guid: fd566344c3446754f9deb442d9238cf4, type: 3}
   bulletPrefab: {fileID: 100000, guid: 04861f345e56c3b4eaa4d0a54a83232d, type: 3}
@@ -29,3 +28,39 @@ MonoBehaviour:
   bonusDamage: 0
   bonusAttackRange: 0
   bonusPickupRange: 0
+  levelData:
+  - damageMultiplier: 1
+    frequencyMultiplier: 1
+    bonusArmor: 5
+    bonusSpeed: 0
+    bonusDamage: 0
+    bonusAttackRange: 0
+    bonusPickupRange: 0
+  - damageMultiplier: 1.3
+    frequencyMultiplier: 1.15
+    bonusArmor: 8
+    bonusSpeed: 0
+    bonusDamage: 0
+    bonusAttackRange: 0
+    bonusPickupRange: 0
+  - damageMultiplier: 1.7
+    frequencyMultiplier: 1.3
+    bonusArmor: 12
+    bonusSpeed: 0
+    bonusDamage: 0
+    bonusAttackRange: 0
+    bonusPickupRange: 0
+  - damageMultiplier: 2.2
+    frequencyMultiplier: 1.5
+    bonusArmor: 16
+    bonusSpeed: 0
+    bonusDamage: 0
+    bonusAttackRange: 0
+    bonusPickupRange: 0
+  - damageMultiplier: 3
+    frequencyMultiplier: 1.8
+    bonusArmor: 22
+    bonusSpeed: 0
+    bonusDamage: 0
+    bonusAttackRange: 0
+    bonusPickupRange: 0
