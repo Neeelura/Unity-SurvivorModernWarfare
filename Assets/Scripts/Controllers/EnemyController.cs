@@ -57,8 +57,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if (player == null) return;
+        
         FSM.Update();
-
         // DOT 灼烧持续伤害
         // 在 FSM 更新之后执行，确保 DOT 伤害能触发死亡状态切换
         if (dotTimer > 0)
