@@ -612,7 +612,6 @@ public class WeaponManager : MonoBehaviour
             weaponModelParents[slotIndex]
         );
         model.transform.localPosition = Vector3.zero;
-        model.transform.localRotation = Quaternion.identity;
         weaponModelInstances[slotIndex] = model;
     }
 }

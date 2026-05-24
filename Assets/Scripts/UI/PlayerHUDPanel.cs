@@ -88,18 +88,18 @@ public class PlayerHUDPanel : BasePanel
     public void RefreshWeaponSlots()
     {
         WeaponManager wm = WeaponManager.Instance;
-        if (wm == null) return;
 
         for (int i = 0; i < 4; i++)
         {
-            bool hasWeapon = i < wm.slots.Count
+            bool hasWeapon = wm != null
+                          && i < wm.slots.Count
                           && wm.slots[i] != null
                           && wm.slots[i].weaponData != null;
 
             if (weaponIcons[i] != null)
             {
                 weaponIcons[i].enabled = hasWeapon;
-                if (hasWeapon && wm.slots[i].weaponData.icon != null)
+                if (hasWeapon)
                     weaponIcons[i].sprite = wm.slots[i].weaponData.icon;
             }
 
