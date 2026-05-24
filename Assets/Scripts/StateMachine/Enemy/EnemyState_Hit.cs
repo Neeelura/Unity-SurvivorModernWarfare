@@ -11,6 +11,7 @@ public class EnemyState_Hit : EnemyState_Base
     {
         enemy.animController.OnHitEndEvent += OnHitEnd; // 订阅受击动画结束事件
 
+        enemy.animController.DoMove(false);
         enemy.agent.isStopped = true; // 停止移动
         enemy.animController.DoHit(); // 播放受击动画
     }
