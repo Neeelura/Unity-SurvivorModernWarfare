@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         FSM.Update();
 
-        // DOT 灼烧持续伤害（每秒一跳）
+        // DOT 灼烧持续伤害
         // 在 FSM 更新之后执行，确保 DOT 伤害能触发死亡状态切换
         if (dotTimer > 0)
         {
@@ -174,9 +174,11 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// <param name="duration">持续时间</param>
     public void ApplyDOT(int damagePerSecond, float duration)
     {
+        bool isNewDOT = dotTimer <= 0f;
         dotDamagePerTick = damagePerSecond;
         dotTimer = duration;
-        dotTickTimer = 0f;  // 立即开始第一跳伤害
+        if (isNewDOT)
+            dotTickTimer = 0f;  // 新 DOT 立即开始第一跳
     }
 
     public void TakeDamage(int damage, Vector3 hitPoint)
