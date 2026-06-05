@@ -24,6 +24,8 @@ public class PauseMenuPanel : BasePanel
         btnRestart.onClick.AddListener(() =>
         {
             Time.timeScale = 1f;
+            UIManager.Instance.HidePanel<PlayerHUDPanel>();
+            UIManager.Instance.HidePanel<PauseMenuPanel>();
             SceneManager.LoadScene("GameScene");
         });
 
@@ -31,6 +33,8 @@ public class PauseMenuPanel : BasePanel
         {
             Time.timeScale = 1f;
             SaveSystem.SaveRuntimeState();
+            UIManager.Instance.HidePanel<PlayerHUDPanel>();
+            UIManager.Instance.HidePanel<PauseMenuPanel>();
             SceneManager.LoadScene("BeginScene");
         });
     }
