@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 对象池管理器
@@ -76,6 +77,7 @@ public class PoolManager
         obj.transform.position = position;
         obj.transform.rotation = rotation;
         obj.transform.SetParent(null);
+        SceneManager.MoveGameObjectToScene(obj, SceneManager.GetActiveScene());
         obj.SetActive(true);
 
         return obj;

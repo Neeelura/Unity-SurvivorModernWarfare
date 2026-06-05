@@ -64,6 +64,7 @@ public class WaveManager : MonoBehaviour
     private void OnDestroy()
     {
         EventCenter.RemoveListener("EnemyDied", OnEnemyDied);
+
         Instance = null;
     }
 
@@ -111,9 +112,9 @@ public class WaveManager : MonoBehaviour
         CurrentWave = data.currentWave;
         TotalKills = data.totalKills;
 
-        Debug.Log($"[WaveManager] 继续游戏：从波次 {data.currentWave + 1} 开始，等级 Lv.{data.playerLevel}，武器 {data.weaponSlots.Count} 把");
+        Debug.Log($"[WaveManager] 继续游戏：从波次 {data.currentWave} 开始，等级 Lv.{data.playerLevel}，武器 {data.weaponSlots.Count} 把");
 
-        StartCoroutine(WaveLoop(data.currentWave + 1));
+        StartCoroutine(WaveLoop(data.currentWave));
     }
 
     /// <summary>
@@ -206,13 +207,6 @@ public class WaveManager : MonoBehaviour
         IsWaveActive = false;
 
         SaveSystem.ClearRuntimeState();
-
-        // 清除所有存活敌人
-        EnemyController[] enemies = Object.FindObjectsOfType<EnemyController>();
-        foreach (EnemyController enemy in enemies)
-        {
-            PoolManager.Instance.Despawn(enemy.gameObject);
-        }
 
         EventCenter.Broadcast("GameLose");
         UIManager.Instance.ShowPanel<ResultPanel>();
