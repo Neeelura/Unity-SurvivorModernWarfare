@@ -96,7 +96,7 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 | 4 | 武器系统 | ✅ |
 | 5 | 波次与敌人 | ✅ |
 | 6 | UI 系统 | ✅ |
-| 7 | 存档系统 | 待开发 |
+| 7 | 存档系统 | ✅ |
 
 ---
 
@@ -120,8 +120,6 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 
 | 方向 | 说明 |
 |------|------|
-| **SaveSystem 存档系统** | PlayerPrefs/JSON 本地存储、最佳波次/总击杀/设置、每波自动存档 |
-| **AssetBundle / Addressables** | 资源异步加载、分包策略、减少启动内存占用、支持热更新 |
 | **XLua 热更新** | Lua 端实现部分业务逻辑（如伤害公式、武器升级），C# 暴露接口供 Lua 调用 |
 | **对象池预热 + 异步加载** | PoolManager PreloadAsync 在波次间隙异步预充敌人实例，平滑加载曲线 |
 | **更多敌人 / Boss 战** | 每 5 波增加 Boss 战、更多敌人种类与攻击模式 |
