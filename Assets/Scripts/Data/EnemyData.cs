@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 敌人类型枚举
@@ -32,7 +32,6 @@ public class EnemyData : ScriptableObject
     public float attackCooldown = 1.5f; // 攻击冷却
     public float chaseRange = 10f;      // 追逐范围
     public float patrolRadius = 5f;     // 巡逻半径
-    public int expReward = 10;          // 击杀经验奖励
 
     [Header("波次属性成长")]
     [Tooltip("每波 HP 增长率")]
