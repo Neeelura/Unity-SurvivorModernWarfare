@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -84,7 +84,7 @@ public class WeaponManager : MonoBehaviour
         // 确保槽位数据已初始化
         InitializeSlots();
         // 初始化玩家属性
-        PlayerStats.Instance.Init();
+        PlayerStats.Instance.Init(player);
         // 初始化武器加成
         PlayerStats.Instance.Recalculate();
     }

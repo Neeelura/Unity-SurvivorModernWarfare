@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 角色属性管理器
@@ -54,9 +54,8 @@ public class PlayerStats
         EventCenter.AddListener<int>("PlayerLevelUp", OnLevelUp);
     }
 
-    public void Init()
+    public void Init(PlayerController player)
     {
-        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
         // 初始化基础属性
         hp = player.maxHp;
         baseSpeed = player.baseSpeed;

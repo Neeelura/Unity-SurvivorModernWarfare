@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -105,7 +105,8 @@ public class WaveManager : MonoBehaviour
         }
 
         // 重算属性
-        PlayerStats.Instance.Init();
+        PlayerController player = FindObjectOfType<PlayerController>();
+        PlayerStats.Instance.Init(player);
         PlayerStats.Instance.Recalculate();
 
         IsGameOver = false;
