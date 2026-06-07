@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyState_Dead : EnemyState_Base
 {
@@ -6,7 +6,7 @@ public class EnemyState_Dead : EnemyState_Base
 
     public EnemyState_Dead(EnemyController enemy, StateMachine stateMachine) : base(enemy, stateMachine) { }
 
-    // ËÀÍöºó½ûÓÃ Collider + ²¥·ÅËÀÍö¶¯»­
+    // æ­»äº¡åç¦ç”¨ Collider + æ’­æ”¾æ­»äº¡åŠ¨ç”»
     public override void OnEnter()
     {
         enemy.agent.isStopped = true;

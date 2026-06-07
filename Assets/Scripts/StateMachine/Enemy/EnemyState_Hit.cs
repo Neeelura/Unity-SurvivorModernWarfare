@@ -1,5 +1,5 @@
-/// <summary>
-/// ÊÜ»÷×´Ì¬
+ï»¿/// <summary>
+/// å—å‡»çŠ¶æ€
 /// </summary>
 public class EnemyState_Hit : EnemyState_Base
 {
@@ -9,18 +9,18 @@ public class EnemyState_Hit : EnemyState_Base
 
     public override void OnEnter()
     {
-        enemy.animController.OnHitEndEvent += OnHitEnd; // ¶©ÔÄÊÜ»÷¶¯»­½áÊøÊÂ¼ş
+        enemy.animController.OnHitEndEvent += OnHitEnd; // è®¢é˜…å—å‡»åŠ¨ç”»ç»“æŸäº‹ä»¶
 
         enemy.animController.DoMove(false);
-        enemy.agent.isStopped = true; // Í£Ö¹ÒÆ¶¯
-        enemy.animController.DoHit(); // ²¥·ÅÊÜ»÷¶¯»­
+        enemy.agent.isStopped = true; // åœæ­¢ç§»åŠ¨
+        enemy.animController.DoHit(); // æ’­æ”¾å—å‡»åŠ¨ç”»
     }
 
     public override void OnExit()
     {
-        enemy.agent.isStopped = false; // »Ö¸´ÒÆ¶¯
+        enemy.agent.isStopped = false; // æ¢å¤ç§»åŠ¨
 
-        enemy.animController.OnHitEndEvent -= OnHitEnd; // È¡Ïû¶©ÔÄÊÜ»÷¶¯»­½áÊøÊÂ¼ş
+        enemy.animController.OnHitEndEvent -= OnHitEnd; // å–æ¶ˆè®¢é˜…å—å‡»åŠ¨ç”»ç»“æŸäº‹ä»¶
     }
 
     public void OnHitEnd()

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +11,14 @@ public class ABManager : MonoBehaviour
         Instance = this;
     }
 
-    // Ö÷°ü
+    // ä¸»åŒ…
     private AssetBundle mainAB = null;
     private AssetBundleManifest manifest = null;
 
     private Dictionary<string, AssetBundle> ABDic = new Dictionary<string, AssetBundle>();
 
     /// <summary>
-    /// AB°üµÄÂ·¾¶
+    /// ABåŒ…çš„è·¯å¾„
     /// </summary>
     private string PathURL
     {
@@ -28,7 +28,7 @@ public class ABManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Ö÷°üµÄÃû×Ö
+    /// ä¸»åŒ…çš„åå­—
     /// </summary>
     private string MainABName
     {
@@ -46,12 +46,12 @@ public class ABManager : MonoBehaviour
 
 
     /// <summary>
-    /// ¼ÓÔØÇ°ÖÃ°ü
+    /// åŠ è½½å‰ç½®åŒ…
     /// </summary>
-    /// <param name="ABName">AB°üÃû³Æ</param>
+    /// <param name="ABName">ABåŒ…åç§°</param>
     private void LoadDependence(string ABName)
     {
-        // ¼ÓÔØÖ÷°ü
+        // åŠ è½½ä¸»åŒ…
         if (mainAB == null)
         {
             mainAB = AssetBundle.LoadFromFile(PathURL + MainABName);
@@ -60,7 +60,7 @@ public class ABManager : MonoBehaviour
 
         AssetBundle ab = null;
 
-        // ¼ÓÔØÒÀÀµ°ü
+        // åŠ è½½ä¾èµ–åŒ…
         string[] dependences = manifest.GetAllDependencies(ABName);
         foreach (string item in dependences)
         {
@@ -71,7 +71,7 @@ public class ABManager : MonoBehaviour
             }
         }
 
-        // ¼ÓÔØÄ¿±ê°ü
+        // åŠ è½½ç›®æ ‡åŒ…
         if (!ABDic.ContainsKey(ABName))
         {
             ab = AssetBundle.LoadFromFile(PathURL + ABName);
@@ -81,15 +81,15 @@ public class ABManager : MonoBehaviour
     
 
     /// <summary>
-    /// Í¬²½¼ÓÔØ×ÊÔ´
+    /// åŒæ­¥åŠ è½½èµ„æº
     /// </summary>
-    /// <param name="ABName">AB°üÃû³Æ</param>
-    /// <param name="resName">×ÊÔ´Ãû³Æ</param>
+    /// <param name="ABName">ABåŒ…åç§°</param>
+    /// <param name="resName">èµ„æºåç§°</param>
     public Object LoadResource(string ABName, string resName)
     {
         LoadDependence(ABName);
 
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         Object obj = ABDic[ABName].LoadAsset(resName);
         if (obj is GameObject)
             return Instantiate(obj);
@@ -100,7 +100,7 @@ public class ABManager : MonoBehaviour
     public T LoadResource<T>(string ABName, string resName) where T : Object
     {
         LoadDependence(ABName);
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         T obj = ABDic[ABName].LoadAsset<T>(resName);
         if (obj is GameObject)
             return Instantiate(obj);
@@ -112,7 +112,7 @@ public class ABManager : MonoBehaviour
     {
         LoadDependence(ABName);
 
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         Object obj = ABDic[ABName].LoadAsset(resName, type);
         if (obj is GameObject)
             return Instantiate(obj);
@@ -122,7 +122,7 @@ public class ABManager : MonoBehaviour
 
 
     /// <summary>
-    /// Òì²½¼ÓÔØ×ÊÔ´
+    /// å¼‚æ­¥åŠ è½½èµ„æº
     /// </summary>
     /// <param name="ABName"></param>
     /// <param name="resName"></param>
@@ -135,7 +135,7 @@ public class ABManager : MonoBehaviour
     {
         LoadDependence(ABName);
 
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         AssetBundleRequest request = ABDic[ABName].LoadAssetAsync(resName);
         yield return request;
 
@@ -152,7 +152,7 @@ public class ABManager : MonoBehaviour
     private IEnumerator LoadResourceAsyncCoroutine<T>(string ABName, string resName, System.Action<T> callback) where T : Object
     {
         LoadDependence(ABName);
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         AssetBundleRequest request = ABDic[ABName].LoadAssetAsync<T>(resName);
         yield return request;
         if (request.asset is GameObject)
@@ -168,7 +168,7 @@ public class ABManager : MonoBehaviour
     private IEnumerator LoadResourceAsyncCoroutine(string ABName, string resName, System.Type type, System.Action<Object> callback)
     {
         LoadDependence(ABName);
-        // ¼ÓÔØ×ÊÔ´
+        // åŠ è½½èµ„æº
         AssetBundleRequest request = ABDic[ABName].LoadAssetAsync(resName, type);
         yield return request;
         if (request.asset is GameObject)
@@ -179,7 +179,7 @@ public class ABManager : MonoBehaviour
 
 
     /// <summary>
-    /// Ğ¶ÔØµ¥¸ö°ü
+    /// å¸è½½å•ä¸ªåŒ…
     /// </summary>
     /// <param name="ABName"></param>
     public void UnLoadAB(string ABName)
@@ -191,7 +191,7 @@ public class ABManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Ğ¶ÔØËùÓĞ°ü
+    /// å¸è½½æ‰€æœ‰åŒ…
     /// </summary>
     public void Clear()
     {

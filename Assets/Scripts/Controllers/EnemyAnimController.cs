@@ -1,11 +1,11 @@
-using System;
+锘縰sing System;
 using UnityEngine;
 
 public class EnemyAnimController : MonoBehaviour
 {
     private Animator anim;
 
-    // 动画相关事件
+    // 鍔ㄧ敾鐩稿叧浜嬩欢
     public event Action OnAttackHitEvent;
     public event Action OnHitEndEvent;
 

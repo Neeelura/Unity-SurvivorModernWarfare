@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyState_Attack : EnemyState_Base
 {
     public override int Priority => 1;
-    private float attackTimer;  // ¹¥»÷ÀäÈ´¼ÆÊ±Æ÷
+    private float attackTimer;  // æ”»å‡»å†·å´è®¡æ—¶å™¨
 
     public EnemyState_Attack(EnemyController enemy, StateMachine stateMachine) : base(enemy, stateMachine) { }
 
@@ -11,7 +11,7 @@ public class EnemyState_Attack : EnemyState_Base
     {
         attackTimer = enemy.attackCooldown;
 
-        // ÊÂ¼þ¶©ÔÄ
+        // äº‹ä»¶è®¢é˜…
         enemy.animController.OnAttackHitEvent += OnAttackHit;
 
         enemy.animController.DoAttack();
@@ -21,7 +21,7 @@ public class EnemyState_Attack : EnemyState_Base
     {
         base.OnUpdate();
 
-        // Èç¹ûÍæ¼Ò²»¼ûÁË»òÕß³¬³ö¹¥»÷·¶Î§£¬ÇÐ»»»Ø Chase ×´Ì¬
+        // å¦‚æžœçŽ©å®¶ä¸è§äº†æˆ–è€…è¶…å‡ºæ”»å‡»èŒƒå›´ï¼Œåˆ‡æ¢å›ž Chase çŠ¶æ€
         if (enemy.player == null || nowTargetSqrDist > enemy.attackRangeSqr)
         {
             stateMachine.ChangeState(enemy.chaseState);
@@ -30,14 +30,14 @@ public class EnemyState_Attack : EnemyState_Base
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0f)
         {
-            stateMachine.ChangeState(enemy.attackState); // ÖØÐÂ½øÈë¹¥»÷×´Ì¬£¬´¥·¢ÏÂÒ»´Î¹¥»÷
+            stateMachine.ChangeState(enemy.attackState); // é‡æ–°è¿›å…¥æ”»å‡»çŠ¶æ€ï¼Œè§¦å‘ä¸‹ä¸€æ¬¡æ”»å‡»
         }
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        // ÊÂ¼þÈ¡Ïû¶©ÔÄ
+        // äº‹ä»¶å–æ¶ˆè®¢é˜…
         enemy.animController.OnAttackHitEvent -= OnAttackHit;
     }
 

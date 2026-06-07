@@ -1,7 +1,7 @@
-using UnityEngine;
+锘縰sing UnityEngine;
 
 /// <summary>
-/// 相机控制器，负责跟随玩家移动
+/// 鐩告満鎺у埗鍣紝璐熻矗璺熼殢鐜╁绉诲姩
 /// </summary>
 public class CameraController : MonoBehaviour
 {
