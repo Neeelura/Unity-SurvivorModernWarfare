@@ -28,13 +28,13 @@
 ### 核心架构设计
 
 ```
-Framework/  (框架层)     EventCenter / StateMachine / PoolManager
-Systems/    (游戏系统)    WaveManager / WeaponManager / PlayerStats / WeaponVFX
+Framework/  (框架层)     EventCenter / StateMachine / PoolManager / ABManager
+Systems/    (游戏系统)    WaveManager / WeaponManager / PlayerStats / WeaponVFX / DropSystem
 Controllers/(控制器)      PlayerController(FSM) / EnemyController(FSM)
 Data/       (数据配置)    WeaponData(SO) / EnemyData(SO)
 UI/         (界面)        BasePanel → 子面板 + DamagePopup 飘字
-StateMachine/(状态机)     PlayerStateMachine + EnemyStateMachine
-Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
+StateMachine/(状态机)     PlayerStateMachine(5层继承) + EnemyStateMachine
+Pickups/    (掉落物)      PickupBase → ExpOrb(小/大) / Medkit
 ```
 
 ### 技术亮点
@@ -42,7 +42,8 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 **1. FSM 有限状态机**
 
 - 通用 `StateMachine` 支持 `OnEnter/OnUpdate/OnExit` 生命周期和优先级打断
-- 玩家 3 状态（Idle → Move → Attack 三段连击），敌人 5 状态（Patrol → Chase → Attack → Hit → Dead）
+- 玩家 5 层 FSM 继承链（Base → Grounded → CanAttack → Idle/Move），攻击状态独立，static comboIndex 跨状态保持三段连击，任意状态均可攻击
+- 敌人 4 状态（Chase → Attack ⇄ Hit → Dead），受击硬直 Priority=10，死亡 Priority=100 不可打断
 - 玩家与敌人共用同一套 FSM 框架
 
 **2. 事件驱动架构**
@@ -64,13 +65,13 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 
 **5. 对象池 **
 
-- `PoolManager` 单例管理敌人、掉落物、飘字的实例复用
-- 所有攻击判定使用 `Physics.OverlapSphereNonAlloc` 预分配数组，避免运行时 GC 抖动
+- 三层对象池：`PoolManager`（敌人/掉落物，容量 50）+ `DamagePopup`（飘字，容量 20）+ `WeaponVFX`（子弹/爆炸/火焰特效，无上限）
+- 所有攻击判定使用 `Physics.OverlapSphereNonAlloc` 预分配数组（Player=10, Weapon=20），避免运行时 GC 抖动
 
 **6. 完整的战斗数值体系**
 - 护甲非线性衰减：`实际伤害 = 原始伤害 × 100/(100+护甲)`，超 200 收益减半
 - 暴击系统：基础 5% 暴击率 + 150% 暴击倍率 + 随机波动 0.9~1.1
-- 经验曲线：`100 + level×50 + level²×10`
+- 经验曲线：`50 + level² × 10`（溢出经验自动滚入下一级，支持连续升级）
 - 敌人生成公式：`20 + wave×15 + wave²×2`
 
 **7. 波次与敌人生成系统**
@@ -90,13 +91,14 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 
 | Phase | 模块 | 状态 |
 |-------|------|------|
-| 1 | 框架搭建 | ✅ |
+| 1 | 框架搭建（FSM/EventCenter/对象池） | ✅ |
 | 2 | 角色属性系统 | ✅ |
 | 3 | 经验与升级系统 | ✅ |
-| 4 | 武器系统 | ✅ |
-| 5 | 波次与敌人 | ✅ |
-| 6 | UI 系统 | ✅ |
-| 7 | 存档系统 | ✅ |
+| 4 | 武器系统（6 武器 × 5 级 + 4 特效） | ✅ |
+| 5 | 波次与敌人生成（3 种 × 25 波） | ✅ |
+| 6 | UI 系统（5 面板 + 飘字） | ✅ |
+| 7 | 存档系统（JSON 运行时状态） | ✅ |
+| 8 | 继续游戏（等级/武器/波次恢复） | ✅ |
 
 ---
 
@@ -120,6 +122,6 @@ Pickups/    (掉落物)      PickupBase → ExpOrb / Medkit
 
 | 方向 | 说明 |
 |------|------|
+| **更多敌人 / Boss 战** | 每 5 波增加 Boss 战、更多敌人种类（远程/自爆/召唤）与攻击模式 |
 | **XLua 热更新** | Lua 端实现部分业务逻辑（如伤害公式、武器升级），C# 暴露接口供 Lua 调用 |
-| **对象池预热 + 异步加载** | PoolManager PreloadAsync 在波次间隙异步预充敌人实例，平滑加载曲线 |
-| **更多敌人 / Boss 战** | 每 5 波增加 Boss 战、更多敌人种类与攻击模式 |
+| **对象池预热** | PoolManager 在波次间隙异步预充敌人实例，平滑加载曲线 |

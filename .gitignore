@@ -67,10 +67,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-# Claude Code configuration
-.claude/
-CLAUDE.md
-
 # Auto-generated terrain upgrade files
 /[Aa]ssets/_TerrainAutoUpgrade/
 
