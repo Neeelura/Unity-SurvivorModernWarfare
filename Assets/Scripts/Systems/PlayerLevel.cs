@@ -1,7 +1,7 @@
-/// <summary>
+﻿/// <summary>
 /// 玩家等级与经验系统
 /// 经验曲线公式：
-///   升级所需 EXP = 50 + (当前等级² × 10)
+///   升级所需 EXP = 50 + (当前等级 × 10)
 /// 升级奖励：
 ///   - 每级：基础攻击+10%
 ///   - 每5级：触发武器抽取
@@ -28,7 +28,7 @@ public class PlayerLevel
     /// <returns>升到下一级所需经验</returns>
     public int CalculateExpRequired(int lvl)
     {
-        return 50 + lvl * lvl * 10;
+        return 50 + lvl * 10;
     }
 
     /// <summary>
